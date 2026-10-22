@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dockbuddy-dock"
+version = "0.1.0"
+description = "DockBuddy 分子对接引擎(通用对接 + 酶盒决策)，从 libdock 抽出的解耦版本"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "DockBuddy" }]
+keywords = ["docking", "vina", "protein", "pocket", "bioinformatics"]
+dependencies = [
+    "dockbuddy-common>=0.1.0",
+    "openbabel-wheel>=3.0",
+    "numpy",
+]
+
+[project.optional-dependencies]
+rdkit = ["rdkit"]
+
+[project.urls]
+Repository = "https://pypi.cnb.cool/vcinex/bioinfo/-/packages/simple"
+
+[tool.setuptools.packages.find]
+include = ["dockbuddy_dock*"]
