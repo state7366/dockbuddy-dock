@@ -22,7 +22,7 @@ from .ligand import (_is_solvent_resname, _native_ligand_resname,
                      _native_ligand_info, _ligand_geom_fragmented,
                      extract_named_ligand, resolve_crystal_ligand,
                      prepare_ligand, prepare_ligand_from_file)
-from .pdbio import _ligand_unsupported_elements
+from .pdbio import _ligand_unsupported_elements, expand_per_chain
 from .triad import detect_catalytic_triad
 from .poses import analyze_top_pose, _kabsch_rmsd_by_name
 from .pocketgeom import (free_volume_sphere, pocket_volume_qc,
@@ -34,6 +34,8 @@ from .af3data import (cif_entry_id, af3_confidence_summary, af3_pae,
 from .receptor import prepare_receptor
 from .gnina import _find_gnina
 from .caver import _find_java
+from .report import write_pymol_script
+from .rescore import mmgbsa_single_structure
 
 __version__ = "0.1.0"
 
