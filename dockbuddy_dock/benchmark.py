@@ -294,7 +294,7 @@ def run_pair(entry, raw_dir, workdir, *, seed=DEFAULT_SEED, exh=DEFAULT_EXH,
     from .ligand import resolve_crystal_ligand
     from .receptor import prepare_receptor
     from .selfdock import self_dock_check
-    import libmutate
+    import dockbuddy_mutate
 
     wt_id, mut_id = entry["wt_pdb"], entry["mut_pdb"]
     mut_pdb = os.path.join(raw_dir, mut_id + ".pdb")
@@ -353,8 +353,8 @@ def run_pair(entry, raw_dir, workdir, *, seed=DEFAULT_SEED, exh=DEFAULT_EXH,
         # --- 锚 3: WT → 突变体建模(本流水线 mutate 管线, 与生产同口径) ---
         mut_modeled = os.path.join(workdir, f"{wt_id}_{mut_id}_modeled.pdb")
         try:
-            eng = libmutate.PdbfixerOpenMMEngine()
-            rep = eng.mutate(wt_pdb, list(libmutate.parse_mutations([entry["mutation"]],
+            eng = dockbuddy_mutate.PdbfixerOpenMMEngine()
+            rep = eng.mutate(wt_pdb, list(dockbuddy_mutate.parse_mutations([entry["mutation"]],
                                                                     entry.get("chain", "") or "")),
                              mut_modeled)
             modeled_ok = bool(rep.get("minimized")) and os.path.exists(mut_modeled)
