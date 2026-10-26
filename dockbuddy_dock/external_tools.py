@@ -191,10 +191,16 @@ def modeller_model(alignment: str, knowns: str, sequence: str, *,
             os.path.dirname(os.path.abspath(alignment)), f"_modeller_{sequence}.py")]
     else:
         if not mdl_dir:
-            raise ExternalToolError(
-                "未找到 modeller; 设置 MODELLER_BIN(mod10.8/mod9.25) 或 "
-                "MODELLER_DIR(modlib 目录, 含 modeller 包) —— salilab.org 下载, "
-                "Linux 用 deb, Windows 用 exe")
+            # conda salilab::modeller 是 Python 包(import modeller), 无 mod10.8 独立
+            # 二进制; 若当前解释器可 import modeller 则走 sys.executable, 不要求 MODELLER_DIR。
+            try:
+                import importlib
+                importlib.import_module("modeller")
+            except ImportError:
+                raise ExternalToolError(
+                    "未找到 modeller; 设置 MODELLER_BIN(mod10.8/mod9.25) 或 "
+                    "MODELLER_DIR(modlib 目录, 含 modeller 包) —— salilab.org 下载, "
+                    "Linux 用 deb, Windows 用 exe")
         interp = [sys.executable, script_path := os.path.join(
             os.path.dirname(os.path.abspath(alignment)), f"_modeller_{sequence}.py")]
 
