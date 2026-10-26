@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dockbuddy-dock"
-version = "0.1.4"
+version = "0.1.5"
 description = "DockBuddy 分子对接引擎(通用对接 + 酶盒决策)，从 libdock 抽出的解耦版本"
 readme = "README.md"
 requires-python = ">=3.8"
